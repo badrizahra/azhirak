@@ -1,0 +1,33 @@
+.sender_title{
+    text-align: right;
+    color:#ff6e00;
+    padding-bottom: 20px;
+}
+#content {
+    padding: 40px 80px;
+    direction: rtl;
+}
+.left-message {
+    background-color: #FCFCFC;
+    color: #ff6e00;
+    padding: 10px;
+    width: 35%;
+    /*margin-top: 10px;*/
+    border-radius: 10px;
+    text-align: left;
+direction: ltr;
+}
+.right-message {
+    background-color: #ff6e00;
+    color: #FCFCFC;
+    padding: 10px;
+    width: 35%;
+    /*margin-top: 10px;*/
+    border-radius: 10px;
+    text-align: right;
+
+}
+.btn btn-info btn-sm{
+    background-color: #ff6e00;
+
+}

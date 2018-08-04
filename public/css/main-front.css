@@ -1,0 +1,264 @@
+body{
+    background:#fff;
+    font-family: "Tahoma" !important;
+}
+.description-box {
+    float: right;
+    width: 48%;
+    border: 6px solid #f8f8f8;
+    margin: 8px;
+}
+#list-content {
+    width: 60%;
+    float: left;
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+.right-col{
+    margin-right: 40px;
+    width: 20%;
+    float: left;
+}
+.description-box:hover {
+    box-shadow: 0 0 15px 5px rgba(0,0,0,.16) !important;
+}
+.description-box .title p {
+    padding-top: 30px;
+}
+.description-box .title,.description-box .state{
+    border: 1px solid #e5e4e3;
+    padding: 10px;
+
+}
+.description-box .date{
+     border:1px solid #e5e4e3;
+
+ }
+.description-box .date,.description-box .state {
+    border-top: none;
+    min-height: 70px;
+}
+.description-box .state {
+
+    background-color:#f8f8f8 ;
+
+}
+.description-box .date .item-date {
+    float: right;
+    width: 50%;
+    border-right:1px solid #e5e4e3;
+    min-height: 70px;
+padding-right: 10px;
+}
+.item-date .item-date-title {
+    padding: 10px;
+}
+
+.description-box .date .item-date-date{
+    text-align:left;
+    padding-left: 10px;
+}
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
+.order-view order,.order-view view{
+    width: 50%;
+    float: right;
+}
+
+.order-view-title {
+    width: 25%;
+}
+.order select,.order-view-title{
+    float: right;
+}
+.order-view .order, .order-view .view{
+    float: right;
+}
+.order-view .order{
+    width: 60%;
+}
+.order-view .view{
+    width:40%;
+}
+.text-left{
+    text-align: left;
+}
+.text-right{
+    text-align: right;
+}
+.type_view{
+    float: right;
+    padding: 0 10px 0 10px;
+}
+.order-view {
+    color: #747474;
+}
+.title-tender-info,.val-tender-info{
+    float: right;
+    margin-bottom: 10px;
+}
+.title-tender-info{
+    width: 95%;
+}
+.tender-info-box {
+    padding: 13px 0 0 0;
+    border-bottom: 1px solid #e5e4e3;
+    height: 48px;
+}
+.fusion-content-widget-area .widget {
+    margin-bottom: 45px;
+    position: relative;
+}
+.search-table {
+    display: table;
+    width: 100%;
+}
+.searchform .search-field {
+    display: table-cell;
+    vertical-align: top;
+}
+.searchform .search-button {
+    display: table-cell;
+    width: 33px;
+    vertical-align: top;
+}
+.hz-searchbtnsubmit {
+    height: 38px;
+    width: 38px;
+    line-height: 38px;
+    background: #000;
+    border: none;
+    border-radius: 0;
+    color: #fff;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    cursor: pointer;
+    font-family: 'icomoon';
+    font-weight: normal;
+    text-shadow: none;
+    -webkit-font-smoothing: antialiased;
+    transition: all .2s;
+}
+#KeywordTxt {
+    width: 250px;
+    height: 38px;
+    border: 1px solid #e5e4e3;
+}
+.tender-info {
+    height: 260px;
+}
+.widget.widget_search {
+    padding-bottom: 60px;
+}
+.start_date,.expiration_date {
+    padding-right: 15px;
+    height: 135px;
+}
+.main_title {
+    margin: 20px;
+    border: 2px solid #e5e4e3;
+    padding: 31px;
+    color:#848484;
+}
+.deatils {
+    border: 2px solid #e5e4e3;
+    /*position: absolute;*/
+    margin-left: 17px;
+    margin-right: 15px;
+    padding: 30px 10px;
+}
+.deatils_box{
+    padding: 20px 0;
+
+}
+.detail-tender
+{
+    border-bottom: 1px dashed #e5e4e3;
+    min-height: 250px;
+
+}
+.detial_col{
+    float: right;
+    width: 50%;
+}
+.details_item {
+    padding: 10px 0;
+}
+.keyword {
+    border: 2px solid #e5e4e3;
+    margin: 15px;
+    height: 90px;
+}
+.groupin{
+    border: 2px solid #e5e4e3;
+    margin: 15px;
+    height: 400px;
+}
+.search_box {
+    padding-right: 120px;
+}
+.seller_detail {
+    width: 300px;
+    padding: 15px;
+    border: 1px solid #dbdbdb;
+    margin: 15px 25px;
+    border-radius: 5px;
+    box-shadow: 1px 1px #b0b0b0;
+    float: right;
+    cursor: pointer;
+
+}
+.seller_detail img , #seller_info img{
+    border-radius: 100px;
+    text-align: center;
+    margin-right: 95px;
+    margin-bottom: 15px;
+    width: 70px;
+    height: 70px;
+}
+.seller_detail_box{
+    width: 75%;
+    float: right;
+}
+
+#seller_info {
+    width: 23%;
+    float: right;
+    border: 1px solid #dbdbdb;
+    box-shadow: 1px 1px #b0b0b0;
+    padding: 15px;
+    margin: 3px;
+    margin-left: 3px;
+    margin-left: 24px;
+    display: none;
+
+}
+.seller_info div{
+    padding:5px 0;
+}
+.send_button input {
+    margin: 5px;
+}
+.send_button {
+    text-align: left;
+
+}
+.text_message,fax_message{
+    display:none;
+
+}
+.fax_message {
+    text-align: right;
+    padding: 0;
+    padding-top: 0px;
+    margin: 0;
+    padding-top: 50px;
+    display: none;
+}
