@@ -5,6 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Nayjest\Grids\Grid;
+use Nayjest\Grids\EloquentDataProvider;
+use Nayjest\Grids\FieldConfig;
+use Nayjest\Grids\FilterConfig;
+use Nayjest\Grids\GridConfig;
+use Nayjest\Grids\IdFieldConfig;
+use Nayjest\Grids\ObjectDataRow;
+use Html;
 
 
 class ContactController extends Controller
@@ -16,54 +24,97 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $title = 'لیست پیام ها ';
+        $title = 'مدیریت تماس ها ';
         $n = 12;
-        $items = Contact::paginate(25);
-        $grid = new \Datagrid($items);
+        $query = (new Contact)
+            ->newQuery();
 
-        // Then we are starting to define columns
-        $grid
-            ->setColumn('subject', 'عنوان', [
-                'sortable'    => true,
-                'has_filters' => true
-            ])
-            ->setColumn('name', 'نام و نام خانوادگی', [
-                'sortable'    => true,
-                'has_filters' => true,
-            ])
-            ->setColumn('email', 'ایمیل', [
-                'sortable'    => true,
-                'has_filters' => true,
-                // Wrapper closure will accept two params
-                // $value is the actual cell value
-                // $row are the all values for this row
-                'wrapper'     => function ($value, $row) {
-                    return '<a href="mailto:' . $value . '">' . $value . '</a>';
-                }
-            ])
-            ->setColumn('phone', 'شماره تماس', [
-                'sortable'    => true,
-                'has_filters' => true,
-            ])
-            ->setColumn('created_at', 'Created', [
-                'sortable'    => true,
-                'has_filters' => true,
-                'wrapper'     => function ($value, $row) {
-                    // The value here is still Carbon instance, so you can format it using the Carbon methods
-                    return $value;
-                }
-            ])
-            ->setColumn('updated_at', 'Updated', [
-                'sortable'    => true,
-                'has_filters' => true
-            ])
-            // Setup action column
-            ->setActionColumn([
-                'wrapper' => function ($value, $row) {
-                    return '<a href="' . action('HomeController@index', $row->id) . '" title="Edit" class="btn btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-					<a href="' . action('HomeController@index', $row->id) . '" title="Delete" data-method="DELETE" class="btn btn-xs text-danger" data-confirm="Are you sure?"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
-                }
-            ]);
+        $grid = new Grid(
+            (new GridConfig)
+                ->setDataProvider(
+                    new EloquentDataProvider($query)
+                )
+                ->setName('id')
+                ->setPageSize(12)
+                ->setColumns([
+                    (new FieldConfig)
+                        ->setName('id')
+                        ->setLabel('ID')
+                        ->setSortable(true)
+                        ->setSorting(Grid::SORT_ASC)
+                    ,
+                    (new FieldConfig)
+                        ->setName('subject')
+                        ->setLabel('عنوان')
+                        ->setCallback(function ($val, ObjectDataRow $row) {
+                            if($row->getSrc()->answer_date == null) {
+                                return "<span style='font-weight: bold'>". $val."</span>";
+                            }
+                            else {
+                                return  $val;
+                            }
+                        })
+                        ->setSortable(true)
+                        ->addFilter(
+                            (new FilterConfig)
+                                ->setOperator(FilterConfig::OPERATOR_LIKE)
+                        )
+                    ,
+                    (new FieldConfig)
+                        ->setName('name')
+                        ->setLabel('نام و نام خانوادگی')
+                        ->setCallback(function ($val, ObjectDataRow $row) {
+                            if($row->getSrc()->answer_date == null) {
+                                return "<span style='font-weight: bold'>". $val."</span>";
+                            }
+                            else {
+                                return  $val;
+                            }
+                        })
+                        ->setSortable(true)
+                        ->addFilter(
+                            (new FilterConfig)
+                                ->setOperator(FilterConfig::OPERATOR_LIKE)
+                        )
+                        ,
+                    (new FieldConfig)
+                        ->setName('created_at')
+                        ->setLabel('تاریخ درج')
+                        ->setSortable(true)
+                        ->addFilter(
+                            (new FilterConfig)
+                                ->setOperator(FilterConfig::OPERATOR_LIKE)
+                        )
+                        ->setCallback(function ($val, ObjectDataRow $row) {
+                            if($row->getSrc()->answer_date == null) {
+                                return "<span style='font-weight: bold'>". $val."</span>";
+                            }
+                            else {
+                                return  $val;
+                            }
+                        })
+                    ,
+                    (new FieldConfig)
+                        ->setName('id')
+                        ->setLabel('حذف')
+                        ->setCallback(function ($val, ObjectDataRow $row) use($n) {
+                            if ($val) {
+//                                if (Gate::allows('permission', 'faq.delete')) {
+//                                    $this_row = '';
+//                                    if(($row->getId() - 1) % $n == 0) {
+//                                        $this_row = '</form>';
+//                                    }
+//                                    return  $this_row.HTML::decode('<form method="post" action="'.route('faq.delete').'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input type="hidden" name="id" value="'.$val.'"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
+//                                }
+//                                else {
+                                    return '<i data-toggle="tooltip" title="" class="fa fa-trash" style="font-size:20px; color:#ababab" data-original-title="حذف"></i>';
+//                                }
+                            }
+                        })
+                ])
+        );
+        $grid = $grid->render();
+        return view('admin/contact/index', compact( 'title', 'grid'));
 
     }
 }

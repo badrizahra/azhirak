@@ -146,8 +146,9 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        'Nayjest\Grids\ServiceProvider',
         'Collective\Html\HtmlServiceProvider',
-        Aginev\Datagrid\DatagridServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -160,7 +161,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        'Datagrid' => Aginev\Datagrid\Datagrid::class,
     ],
 
     /*
@@ -211,7 +211,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
-
+        'Grids'     => 'Nayjest\Grids\Grids',
+        'Input' => Illuminate\Support\Facades\Input::class,
     ],
 
 ];
