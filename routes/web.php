@@ -37,6 +37,9 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     //user
     Route::resource('user','UserController',['as' => 'admin']);
 
+    //contact us
     Route::get('contact/','ContactController@index')->name('contact.index');
+    Route::get('contact/show/{id}','ContactController@show')->name('contact.show');
+    Route::delete('contact/delete','ContactController@delete')->name('contact.delete');
 
 });

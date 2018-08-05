@@ -18,6 +18,8 @@ use Html;
 class ContactController extends Controller
 {
     /**
+     * Index
+     *
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -47,12 +49,14 @@ class ContactController extends Controller
                         ->setName('subject')
                         ->setLabel('عنوان')
                         ->setCallback(function ($val, ObjectDataRow $row) {
-                            if($row->getSrc()->answer_date == null) {
-                                return "<span style='font-weight: bold'>". $val."</span>";
+                            $id = $row->getSrc()->id;
+                            if($row->getSrc()->is_seen == 0) {
+                                $res_row = "<span style='font-weight: bold'>". $val."</span>";
                             }
                             else {
-                                return  $val;
+                                $res_row = $val;
                             }
+                            return '<a href="'.route('contact.show',$id).'">'.$res_row.'</a>';
                         })
                         ->setSortable(true)
                         ->addFilter(
@@ -64,12 +68,14 @@ class ContactController extends Controller
                         ->setName('name')
                         ->setLabel('نام و نام خانوادگی')
                         ->setCallback(function ($val, ObjectDataRow $row) {
-                            if($row->getSrc()->answer_date == null) {
-                                return "<span style='font-weight: bold'>". $val."</span>";
+                            $id = $row->getSrc()->id;
+                            if($row->getSrc()->is_seen == 0) {
+                                $res_row = "<span style='font-weight: bold'>". $val."</span>";
                             }
                             else {
-                                return  $val;
+                                $res_row = $val;
                             }
+                            return '<a href="'.route('contact.show',$id).'">'.$res_row.'</a>';
                         })
                         ->setSortable(true)
                         ->addFilter(
@@ -86,12 +92,14 @@ class ContactController extends Controller
                                 ->setOperator(FilterConfig::OPERATOR_LIKE)
                         )
                         ->setCallback(function ($val, ObjectDataRow $row) {
-                            if($row->getSrc()->answer_date == null) {
-                                return "<span style='font-weight: bold'>". $val."</span>";
+                            $id = $row->getSrc()->id;
+                            if($row->getSrc()->is_seen == 0) {
+                                $res_row = "<span style='font-weight: bold'>". $val."</span>";
                             }
                             else {
-                                return  $val;
+                                $res_row = $val;
                             }
+                            return '<a href="'.route('contact.show',$id).'">'.$res_row.'</a>';
                         })
                     ,
                     (new FieldConfig)
@@ -99,16 +107,7 @@ class ContactController extends Controller
                         ->setLabel('حذف')
                         ->setCallback(function ($val, ObjectDataRow $row) use($n) {
                             if ($val) {
-//                                if (Gate::allows('permission', 'faq.delete')) {
-//                                    $this_row = '';
-//                                    if(($row->getId() - 1) % $n == 0) {
-//                                        $this_row = '</form>';
-//                                    }
-//                                    return  $this_row.HTML::decode('<form method="post" action="'.route('faq.delete').'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input type="hidden" name="id" value="'.$val.'"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
-//                                }
-//                                else {
-                                    return '<i data-toggle="tooltip" title="" class="fa fa-trash" style="font-size:20px; color:#ababab" data-original-title="حذف"></i>';
-//                                }
+                                return  HTML::decode('<form method="post" action="'.route('contact.delete').'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input type="hidden" name="id" value="'.$val.'"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
                             }
                         })
                 ])
@@ -116,5 +115,30 @@ class ContactController extends Controller
         $grid = $grid->render();
         return view('admin/contact/index', compact( 'title', 'grid'));
 
+    }
+
+    public function show($id) {
+        $item = Contact::find($id);
+        $title = '';
+        return view('admin/contact/show',compact('item','title'));
+    }
+
+    /**
+     * Delete
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(Request $request) {
+        if(!$request->id) {
+            return redirect()->route('contact.index')->with(['message'=>'اطلاعات نامعتبر است.','type'=>'alert-danger']);
+        }
+
+        if (Contact::where('id', $request->id)->delete()) {
+            return redirect()->route('contact.index')->with(['message'=>'حذف با موفقیت انجام شد.','type'=>'alert-success']);
+        }
+        else {
+            return redirect()->route('contact.index')->with(['message'=>'عملیات با مشکل مواجه شد.','type'=>'alert-danger']);
+        }
     }
 }

@@ -19,6 +19,7 @@ class CreateContactsTable extends Migration
             $table->string('name',180)->nullable();
             $table->string('phone',250)->nullable();
             $table->string('email',130)->nullable();
+            $table->boolean('is_seen');
             $table->text('description');
             $table->dateTime('created_at');
             $table->softDeletes();
