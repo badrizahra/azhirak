@@ -39,4 +39,14 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
 
     Route::get('contact/','ContactController@index')->name('contact.index');
 
+    //websamples
+    // Route::resource('websamples', 'WebSamplesController')->except(['store']);
+    Route::get('/websamples', 'WebSamplesController@index');
+    Route::get('/websamples/create', 'WebSamplesController@create');
+    Route::get('/websamples/{id}', 'WebSamplesController@show');
+    // Route::post('users/{user}/websamples', 'WebSamplesController@store');
+    Route::post('/websamples', 'WebSamplesController@store');
+    Route::get('/websamples/{webSample}/edit', 'WebSamplesController@edit');
+    Route::put('/websamples/{id}', 'WebSamplesController@update');
+    Route::delete('/websamples/{id}', 'WebSamplesController@destroy');
 });
