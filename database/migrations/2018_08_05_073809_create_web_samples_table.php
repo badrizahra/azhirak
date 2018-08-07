@@ -18,9 +18,11 @@ class CreateWebSamplesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('title', 200);
-            $table->text('description');
-            $table->string('url', 250);
+            $table->text('description', 255);
+            $table->string('url', 250); 
             $table->string('image');
+            $table->integer('status_id')->unsigned();
+            // $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
             $table->timestamps();
         });
     }
