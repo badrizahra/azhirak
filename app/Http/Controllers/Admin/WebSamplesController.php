@@ -5,8 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\WebSample;
 use App\User;
+use App\WebTag;
+use App\Status;
 use App\Http\Requests\WebSampleRequest;
 use Illuminate\Http\Request;
+
+// Image upload
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class WebSamplesController extends Controller
 {
@@ -29,7 +35,13 @@ class WebSamplesController extends Controller
      */
     public function create()
     {
-        return view('websamples.create');
+        $status = Status::all();
+        $webTags = WebTag::all();
+
+        return view('websamples.create', [
+            'status'=>$status,
+            'webTags'=>$webTags
+        ]);
     }
 
     /**
@@ -50,10 +62,23 @@ class WebSamplesController extends Controller
 
         $validated = $request->validated();
 
+        $image = $request->file('image');
+        $image_mime = $image->getClientOriginalExtension();
+        $imagePath = 'uploads/websamples/' . $image->getFilename() . '.' . $image->getClientOriginalExtension();
+        
         $webSample = new WebSample($validated);
-        $webSample -> save();
+        $webSample->image = $imagePath;
+        $webSample->status_id = $request['status'];
+        $webSample->user_id = auth()->user()->id;
+        $webSample->save();
+        
+        $selected_tags = array_values($request['webTags']);
+        $webTags = WebTag::find($selected_tags);
+        $webSample->webtags()->attach($webTags);
+        
+        Storage::disk('public')->put( 'websamples/' . $image->getFilename() . '.' . $image_mime, File::get($image));
 
-        return back();
+        return redirect('/admin/websamples');
     }
 
     /**
@@ -64,8 +89,8 @@ class WebSamplesController extends Controller
      */
     public function show($id)
     {
-        $webSample = WebSample::find($id);
-        return($webSample);
+        $webSample = WebSample::findOrFail($id);
+        return view ('websamples.show', ['webSample' => $webSample]);
     }
 
     /**
@@ -76,7 +101,14 @@ class WebSamplesController extends Controller
      */
     public function edit(WebSample $webSample)
     {   
-        return view('websamples.edit', ['webSample' => $webSample]);
+        $status = Status::all();
+        $webTags = WebTag::all();
+
+        return view('websamples.edit', [
+            'webSample' => $webSample,
+            'status' => $status,
+            'webTags' => $webTags,
+        ]);
     }
 
     /**
@@ -90,7 +122,28 @@ class WebSamplesController extends Controller
     {
         $validated = $request->validated();
 
-        $webSample = WebSample::find($id);
+        $webSample = WebSample::findOrFail($id);
+        
+        if($request->file('image')) {
+
+            // websample::uploadImage()
+
+            // validate new image
+
+            //set new variables
+            $image = $request->file('image');
+            $image_mime = $image->getClientOriginalExtension();
+            $imagePath = 'uploads/websamples' . $image->getFilename() . '.' . $image->getClientOriginalExtension();
+
+            // delete old
+            File::delete($webSample->image);
+            // store new 
+            Storage::disk('public')->put( 'websamples/' . $image->getFilename() . '.' . $image_mime, File::get($image));
+            // set new path to db
+            $validated['image'] = $imagePath;
+            $validated['image_mimetype'] = $image_mime;
+        }
+        
         $webSample->update($validated);
 
         return back();
@@ -105,10 +158,13 @@ class WebSamplesController extends Controller
      */
     public function destroy(Request $request)
     {
-        $webSample = WebSample::find($request->id);
-
+        $webSample = WebSample::findOrFail($request->id);
+        
+        File::delete($webSample->image);
+        
         $webSample->delete();
 
         return redirect('/admin/websamples');
     }
+
 }

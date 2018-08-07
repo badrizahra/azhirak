@@ -27,8 +27,8 @@ class WebSampleRequest extends FormRequest
             'title' => 'required|max:200',
             'description' => 'required',
             'url' => 'required|max:250',
-            'image' => 'required',
-            'user_id' => 'required'
+            // 'image' => 'required',
+            // 'user_id' => 'required'
         ];
     }
 }

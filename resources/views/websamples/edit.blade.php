@@ -1,4 +1,4 @@
-<form action="/admin/websamples/{{ $webSample->id }}" method="POST">
+<form action="/admin/websamples/{{ $webSample->id }}" method="POST" enctype="multipart/form-data">
     
     {{ csrf_field() }}
     
@@ -13,12 +13,30 @@
     url:<br>
     <input type="text" name="url" id="url" value="{{ $webSample['url'] }}">
     <br>
-    image:<br>
-    <input type="text" name="image" id="image" value="{{ $webSample['image'] }}">
+    CurrentImage:<br>
+    <img src="{{url( $webSample->image )}}" alt="{{ $webSample->image }}">
     <br>
-    user_id:<br>
-    <input type="text" name="user_id" id="user_id" value="{{ $webSample['user_id'] }}">
+    NewImage:
+    <input type="file" name="image" id="image">
     <br>
+    <br>
+    Status:<br>
+    <select name="status" id="status">
+        @foreach ($status as $stat)           
+            <option value="{{ $stat->id }}" @if ($webSample->status_id == $stat->id) {{ 'selected' }}  @endif>{{ $stat->title }}</option>
+        @endforeach
+    </select>
+    <br>
+
+    WebTags:<br>
+    @foreach ($webTags as $webTag)
+        <input type="checkbox" name="webTags[{{ $webTag->id }}]" value="{{ $webTag->id }}"  @if ( in_array( $webTag->id, $webSample->webtags()->get()->toArray() ) )
+        {{ 'checked' }}  > 
+        @endif>{{ $webTag->title }}
+    @endforeach
+
+    <br>
+    <br><br>
     <br><br>
     <button type="submit">Submit</button>
 </form>
