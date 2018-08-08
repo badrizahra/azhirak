@@ -3,75 +3,36 @@
     <ul id="menu">
         <li id="menu-dashboard">
 
-{{--        @can('permission','user.index-seller.index-userAdmin.index-role.index,permission.index')--}}
-            <li id="menu-user">
-                <a href="#collapse1" data-toggle="collapse" class="parent collapsed">
-                   <img src="{{ asset('/image/icon/1.png') }}"> مدیریت کاربران و سطوح دسترسی
+        <li id="menu-user">
+            <a href="#collapse1" data-toggle="collapse" class="parent collapsed">
+                <img src="{{ asset('/image/icon/1.png') }}"> مدیریت نمونه کارها
+            </a>
+            <ul id="collapse1" class="collapse">
+                    <a href="#collapse1-1" data-toggle="collapse" class="parent collapsed">
+                        نمونه کارهای وب
+                    </a>
+                    <ul id="collapse1-1" class="collapse">
+
+                        <li><a href="">لیست نمونه کارها </a></li>
+                        <li><a href="{{ route('websamples.create') }}">درج نمونه کار </a></li>
+                    </ul>
+                <a href="#collapse1-2" data-toggle="collapse" class="parent collapsed">
+                    نمونه کارهای شبکه
                 </a>
-                <ul id="collapse1" class="collapse">
-{{--                    @can('permission','role.index-permission.index')--}}
-                        <a href="#collapse1-1" data-toggle="collapse" class="parent collapsed">دسترسی ها
-                        </a>
-                        <ul id="collapse1-1" class="collapse">
+                <ul id="collapse1-2" class="collapse">
 
-{{--                            @can('permission','role.index')--}}
-                                <li><a href="{{ route('role.index')}}">نقش های کاربری </a></li>
-                            {{--@endcan--}}
-{{--                            @can('permission','permission.index')--}}
-                                    <li><a href="{{ route('permission.index')}}"> تنظیمات کاربری </a></li>
-                            {{--@endcan--}}
-                        </ul>
-                    {{--@endcan--}}
-{{--                    @can('permission','user.index')--}}
-                        <li><a href="{{ route('admin.user.index')}}"> لیست کاربران عادی </a></li>
-                    {{--@endcan--}}
-                    {{--@can('permission','userAdmin.index')--}}
-                        {{--<li><a href="{{ route('userAdmin.index')}}">لیست مدیران </a></li>--}}
-                    {{--@endcan--}}
-                    {{--@can('permission','seller.index')--}}
-                        {{--<li><a href="{{ route('seller.index') }}">لیست  فروشندگان و تامین کنندگان </a></li>--}}
-                    {{--@endcan--}}
+                    <li><a href="">لیست نمونه کارها </a></li>
+                    <li><a href="">درج نمونه کار </a></li>
                 </ul>
-            </li>
-        {{--@endcan--}}
+                <a href="#collapse1-3" data-toggle="collapse" class="parent collapsed">
+                    نمونه کارهای گرافیک
+                </a>
+                <ul id="collapse1-3" class="collapse">
 
-        {{--@can('permission','category.list-businessType.index')--}}
-            {{--<li id="menu-category">--}}
-                {{--<a href="#collapse2" data-toggle="collapse" class="parent collapsed">--}}
-                    {{--<img src="{{ asset('/image/icon/2.png') }}">کسب و کارها </a>--}}
-                {{--<ul id="collapse2" class="collapse">--}}
-                    {{--@can('permission','category.list')<li><a href="{{route('category.list')}}">دسته بندی کسب و کار </a></li>@endcan--}}
-                    {{--@can('permission','businessType.index')<li><a href="{{ route('businessType.index') }}">نوع کسب و کار </a></li>@endcan--}}
-                {{--</ul>--}}
-            {{--</li>--}}
-        {{--@endcan--}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <li><a href="">لیست نمونه کارها </a></li>
+                    <li><a href="">درج نمونه کار </a></li>
+                </ul>
+            </ul>
+        </li>
     </ul>
-
-
-
-
 </nav>

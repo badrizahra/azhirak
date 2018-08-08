@@ -45,7 +45,7 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     //websamples
     // Route::resource('websamples', 'WebSamplesController')->except(['store']);
     Route::get('/websamples', 'WebSamplesController@index');
-    Route::get('/websamples/create', 'WebSamplesController@create');
+    Route::get('/websamples/create', 'WebSamplesController@create')->name('websamples.create');
     Route::get('/websamples/{id}', 'WebSamplesController@show');
     // Route::post('users/{user}/websamples', 'WebSamplesController@store');
     Route::post('/websamples', 'WebSamplesController@store');

@@ -39,7 +39,7 @@ class WebSamplesController extends Controller
         $data['status'] = Status::all();
         $data['webTags'] = WebTag::all();
 
-        return view('websamples.create', $data);
+        return view('admin.websamples.create', $data);
     }
 
     /**
