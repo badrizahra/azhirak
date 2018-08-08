@@ -30,7 +30,7 @@
 
     WebTags:<br>
     @foreach ($webTags as $webTag)
-        <input type="checkbox" name="webTags[{{ $webTag->id }}]" value="{{ $webTag->id }}"  @if ( in_array( $webTag->id, $webSample->webtags()->get()->toArray() ) )
+        <input type="checkbox" name="webTags[{{ $webTag->id }}]" value="{{ $webTag->id }}"  @if ( (in_array( $webTag->id, $webSample->webtags()->get()->toArray()) == 1 ) )
         {{ 'checked' }}  > 
         @endif>{{ $webTag->title }}
     @endforeach

@@ -148,6 +148,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         'Nayjest\Grids\ServiceProvider',
         'Collective\Html\HtmlServiceProvider',
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -213,6 +214,7 @@ return [
         'Html' => 'Collective\Html\HtmlFacade',
         'Grids'     => 'Nayjest\Grids\Grids',
         'Input' => Illuminate\Support\Facades\Input::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

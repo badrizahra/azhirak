@@ -24,10 +24,11 @@ class WebSampleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:200',
-            'description' => 'required',
+            'title' => 'required|max:30',
+            'description' => 'required|max:250',
             'url' => 'required|max:250',
-            // 'image' => 'required',
+            'image' => 'mimes:jpeg,jpg,bmp,png',
+            // 'status_id' => 'required',
             // 'user_id' => 'required'
         ];
     }
