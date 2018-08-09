@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2">وضعیت</label>
-                            <select name="status" id="status" class="form-control col-md-7">
+                            <select name="status_id" id="status_id" class="form-control col-md-7">
                                 @foreach ($status as $stat)
                                     <option value="{{ $stat->id }}">{{ $stat->title }}</option>
                                 @endforeach

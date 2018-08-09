@@ -13,7 +13,7 @@
                     </a>
                     <ul id="collapse1-1" class="collapse">
 
-                        <li><a href="">لیست نمونه کارها </a></li>
+                        <li><a href="{{ route('websamples.index') }}">لیست نمونه کارها </a></li>
                         <li><a href="{{ route('websamples.create') }}">درج نمونه کار </a></li>
                     </ul>
                 <a href="#collapse1-2" data-toggle="collapse" class="parent collapsed">
