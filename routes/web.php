@@ -42,7 +42,7 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     Route::get('contact/show/{id}','ContactController@show')->name('contact.show');
     Route::delete('contact/delete','ContactController@delete')->name('contact.delete');
 
-    //websamples
+    //websamples admin
     Route::get('/websamples', 'WebSamplesController@index')->name('websamples.index');
     Route::get('/websamples/create', 'WebSamplesController@create')->name('websamples.create');
     Route::get('/websamples/{id}', 'WebSamplesController@show')->name('websamples.show');
@@ -51,4 +51,28 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     Route::put('/websamples/{id}', 'WebSamplesController@update')->name('websamples.update');
     Route::delete('/websamples/{id}', 'WebSamplesController@destroy')->name('websamples.destroy');
     Route::get('/websamples/deletewsimage/{id}', 'WebSamplesController@delete_image');
+
+    //Networksamples admin
+    Route::get('/networksamples', 'NetworkSamplesController@index')->name('networksamples.index');
+    Route::get('/networksamples/create', 'NetworkSamplesController@create')->name('networksamples.create');
+    Route::get('/networksamples/{id}', 'NetworkSamplesController@show')->name('networksamples.show');
+    Route::post('/networksamples', 'NetworkSamplesController@store')->name('websamples.store');
+    Route::get('/networksamples/{networkSample}/edit', 'NetworkSamplesController@edit')->name('networksamples.edit');
+    Route::put('/networksamples/{id}', 'NetworkSamplesController@update')->name('networksamples.update');
+    Route::delete('/networksamples/{id}', 'NetworkSamplesController@destroy')->name('networksamples.destroy');
+    Route::get('/networksamples/deletensimage/{id}', 'NetworkSamplesController@delete_image');
+
+    //Graphicsamples admin
+    Route::get('/graphicsamples', 'GraphicSamplesController@index')->name('graphicsamples.index');
+    Route::get('/graphicsamples/create', 'GraphicSamplesController@create')->name('graphicsamples.create');
+    Route::get('/graphicsamples/{id}', 'GraphicSamplesController@show')->name('graphicsamples.show');
+    Route::post('/graphicsamples', 'GraphicSamplesController@store')->name('graphicsamples.store');
+    Route::get('/graphicsamples/{graphicSample}/edit', 'GraphicSamplesController@edit')->name('graphicsamples.edit');
+    Route::put('/graphicsampleswebsamples/{id}', 'GraphicSamplesController@update')->name('graphicsamples.update');
+    Route::delete('/graphicsamples/{id}', 'GraphicSamplesController@destroy')->name('graphicsamples.destroy');
+    Route::get('/graphicsamples/deletegsimage/{id}', 'GraphicSamplesController@delete_image');
 });
+
+//Websamples public
+// Route::get('/websamples', 'WebSamplesController@index');
+// Route::get('/websamples/{id}', 'WebSamplesController@show');
