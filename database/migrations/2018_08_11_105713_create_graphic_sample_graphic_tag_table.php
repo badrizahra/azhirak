@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWebTagsTable extends Migration
+class CreateGraphicSampleGraphicTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateWebTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('web_tags', function (Blueprint $table) {
+        Schema::create('graphic_sample_graphic_tag', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 100);
+            $table->integer('graphic_sample_id');
+            $table->integer('graphic_tag_id');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateWebTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('web_tags');
+        Schema::dropIfExists('graphic_sample_graphic_tag');
     }
 }

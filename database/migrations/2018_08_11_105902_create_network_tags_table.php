@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWebTagsTable extends Migration
+class CreateNetworkTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateWebTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('web_tags', function (Blueprint $table) {
+        Schema::create('network_tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 100);
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateWebTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('web_tags');
+        Schema::dropIfExists('network_tags');
     }
 }
