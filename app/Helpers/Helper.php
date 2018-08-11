@@ -5,6 +5,10 @@ namespace App\Helpers;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\WebSample;
 use App\WebTag;
+use App\NetworkSample;
+use App\NetworkTag;
+use App\GraphicSample;
+use App\GraphicTag;
 
 class Helper {
 
@@ -48,7 +52,7 @@ class Helper {
      * @param integer $smaple_id 
      * @param array $tags
      * 
-     * @return 
+     * 
      */
     public static function manage_web_tags($sample_id, $tags=['']) 
     {
@@ -64,9 +68,57 @@ class Helper {
         }
         
         if($webRes) {
-            return 'true';
+            return true;
         } else {
-            return 'false';
+            return false;
+        }
+        
+    }
+
+    /**
+     * Manage networksample tags
+     */
+    public static function manage_network_tags($sample_id, $tags=['']) 
+    {
+        $networkSample = NetworkSample::findOrFail($sample_id);
+
+        // dd($tags);
+
+        if ($tags[0] == '') {
+            $networkRes = $networkSample->networktags()->detach();
+        } else {
+            $networkSample->networktags()->detach();
+            $networkRes = $networkSample->networktags()->attach($tags);
+        }
+        
+        if($networkRes) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    /**
+     * Manage graphicsample tags
+     */
+    public static function graphic_tags($sample_id, $tags=['']) 
+    {
+        $graphicSample = WebSample::findOrFail($sample_id);
+
+        // dd($tags);
+
+        if ($tags[0] == '') {
+            $graphicRes = $graphicSample->webtags()->detach();
+        } else {
+            $graphicSample->graphictags()->detach();
+            $graphicRes = $graphicSample->webtags()->attach($tags);
+        }
+        
+        if($graphicRes) {
+            return true;
+        } else {
+            return false;
         }
         
     }
