@@ -1,1 +1,0 @@
-<img class="card-img-top" src="{{url( $webSample->image )}}" alt="{{ $webSample->image }}">
