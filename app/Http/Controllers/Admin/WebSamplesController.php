@@ -66,29 +66,26 @@ class WebSamplesController extends Controller
             
             if(!$imageRes) 
             {
-                return false;
+                return redirect()->route('websamples.index')->with(['message' => 'تصویر بدرستی آپلود نشد', 'type' => 'alert-danger']);
             }
-        } else {
-            $webSample->image = '/uploads/websamples/websample_default.jpg';
         }
         
         $webSample->status_id = $request['status_id'];
         $webSample->user_id = auth()->user()->id;
         if(!$webSample->save()) {
-            return false;
+            return redirect()->route('websamples.index')->with(['message' => 'خطا در افزودن نمونه کار', 'type' => 'alert-danger']);
         }
 
         if($request['webTags']){
-
-            // $webRes = Helper::add_tags($request['id'], $request['webTags']);
-
             $selected_tags = array_values($request['webTags']);
             $webTags = WebTag::find($selected_tags);
-            Helper::manage_web_tags($webSample->id, $webTags);
+            if(!Helper::manage_web_tags($webSample->id, $webTags)) {
+                return redirect()->route('websamples.index')->with(['message' => 'خطا در افزودن تگ ها', 'type' => 'alert-danger']);
+             };
         }
 
-
-        return redirect('/admin/websamples');
+        // Success
+        return redirect()->route('websamples.index')->with(['message' => 'نمونه کار با موفقیت اضافه شد', 'type' => 'alert-success']);
     }
 
     /**
@@ -114,20 +111,11 @@ class WebSamplesController extends Controller
      */
     public function edit(WebSample $webSample)
     {   
-        $status = Status::all();
-        $webTags = WebTag::all();
-
-        return view('admin.websamples.edit', [
-            'webSample' => $webSample,
-            'status' => $status,
-            'webTags' => $webTags,
-        ]);
-
         $data['status'] = Status::all();
         $data['webTags'] = WebTag::all();
         $data['webSample'] = $webSample;
 
-        return view('admin.websamples.create', $data);
+        return view('admin.websamples.edit', $data);
     }
 
     /**
@@ -140,17 +128,20 @@ class WebSamplesController extends Controller
     public function update(WebSampleRequest $request, $id)
     {
         $validated = $request->validated();
-        // dd($validated);
 
         $webSample = WebSample::findOrFail($id);
-
+        
         if($request->file('image')) 
         {
             $image = $request->file('image');
             $folder = '/uploads/websamples/';
             $prefix = 'websample';
             
-            File::delete(public_path($webSample->image));
+            if($webSample->image){
+                // Sample has image
+                File::delete(public_path($webSample->image));
+            }
+
             $imageRes = Helper::upload_image($image ,$folder, $prefix);
             
             $webSample->image = $folder . $imageRes;
@@ -158,44 +149,51 @@ class WebSamplesController extends Controller
             
             if(!$imageRes) 
             {
-                return false;
+                // Image not saved
+                return redirect()->route('websamples.index')->with(['message' => 'تصویر بدرستی آپلود نشد', 'type' => 'alert-danger']);
             }
-        }
+        // dd('here');
+
+        }        
         
         $validated['status_id'] = $request['status_id'];
-        // $webSample->user_id = auth()->user()->id;
-        if($webSample->user_id == auth()->user()->id) {
-            if(!$webSample->update($validated)) {
-                // websample update query failed
-                return false;
-            } else {
-                // update status_id
-                $webSample->status_id = $request['status_id'];
-                $webSample->save();
-            }
+        $webSample->user_id = auth()->user()->id;
+
+        if(!$webSample->update($validated)) {
+            // websample update query failed
+            return redirect()->route('websamples.index')->with([
+                'message' => 'خطا در آپدیت نمونه کار.',
+                'type' => 'alert-danger']);
         } else {
-            // this user didnt create the sample
-            return false;
+            // update status_id
+            $webSample->status_id = $request['status_id'];
+            if(!$webSample->save()) {
+                return redirect()->route('websamples.index')->with([
+                    'message' => 'خطا در آپدیت نمونه کار.',
+                    'type' => 'alert-danger']);
+            }
         }
         
-        if($request['webTags']){
-
-            // $webRes = Helper::add_web_tags($request['id'], $request['webTags']);
-
+        if($request['webTags']) {
             $selected_tags = array_values($request['webTags']);
             $webTags = WebTag::find($selected_tags);
-            $tagRes = Helper::manage_web_tags($webSample->id, $webTags);
-            if(!$tagRes) {
-                return false;
+            
+            if(!Helper::manage_web_tags($webSample->id, $webTags)) {
+                return redirect()->route('websamples.index')->with([
+                    'webSample' => $webSample,
+                    'message' => 'خطا در افزودن تگ ها',
+                    'type' => 'alert-danger']);
             }
         } else {
-            $tagRes = Helper::manage_web_tags($webSample->id);
-            if(!$tagRes) {
-                return false;
+            if(!Helper::manage_web_tags($webSample->id)) {
+                return redirect()->route('websamples.index')->with([
+                    'webSample' => $webSample,
+                    'message' => 'خطا در افزودن تگ ها',
+                    'type' => 'alert-danger']);
             }
         }
-
-        return back();
+        
+        return redirect()->route('websamples.index')->with(['message' => 'نمونه کار بدرستی آپدیت شد', 'type' => 'alert-success']);
 
     }
 
@@ -209,34 +207,30 @@ class WebSamplesController extends Controller
     {
         $webSample = WebSample::findOrFail($request->id);
         
-        if(File::delete(public_path($webSample->image))) {
+        if(Helper::manage_web_tags($webSample->id)) {
             if($webSample->delete()) {
-                $res = Helper::manage_web_tags($webSample->id);
-                if($res) {
-                    return redirect('/admin/websamples');
+                if($webSample->image) {
+                    // sample has image
+                    if(File::delete(public_path($webSample->image))) {
+                        // Success
+                        return redirect()->route('websamples.index')->with(['message'=>'حذف با موفقیت انجام شد.','type'=>'alert-success']);
+                    } else {
+                        // file delete failed
+                        return redirect()->route('websamples.index')->with(['message'=>'خطا در حذف تصویر.','type'=>'alert-danger']);
+                    }
                 } else {
-                    return false;
+                    // Success
+                    return redirect()->route('websamples.index')->with(['message'=>'حذف با موفقیت انجام شد.','type'=>'alert-success']);
                 }
-            }         
-        }
-    }
-
-    /**
-     * Deletes websample image and sets websample image to default
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function delete_image(Request $request) 
-    {
-        $webSample = WebSample::findOrFail($request->id);
-        if(File::delete(public_path($websample->image))) {
-            $webSample->image = '/uploads/websamples/websample_default.jpg';
-            $webSample->save();
-            return back();
+            } else {
+                // websample->delete() failed
+                return redirect()->route('websamples.index')->with(['message' => 'خطا در حذف نمونه کار.', 'type' => 'alert-danger']);
+            }
         } else {
-            return false;
+            // manage_web_tags failed
+            return redirect()->route('websamples.index')->with(['message' => 'خطا در حذف تگ ها', 'type' => 'alert-danger']);
         }
+
     }
 
 }
