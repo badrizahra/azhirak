@@ -58,21 +58,18 @@ class Helper {
     {
         $webSample = WebSample::findOrFail($sample_id);
 
-        // dd($tags);
-
-        if ($tags[0] == '') {
-            $webRes = $webSample->webtags()->detach();
-        } else {
+        if ($tags[0] == "" && count($webSample->webtags()->get()->toArray()) > 0 ) {
+            $webSample->webtags()->detach();
+            return true;
+        } elseif ($tags[0] == "" && $webSample->webtags()->get()->toArray() == 0) {
+            return true;
+        } elseif($tags[0] != "") {
             $webSample->webtags()->detach();
             $webRes = $webSample->webtags()->attach($tags);
-        }
-        
-        if($webRes) {
             return true;
         } else {
-            return false;
+            return true;
         }
-        
     }
 
     /**
@@ -82,45 +79,39 @@ class Helper {
     {
         $networkSample = NetworkSample::findOrFail($sample_id);
 
-        // dd($tags);
-
-        if ($tags[0] == '') {
-            $networkRes = $networkSample->networktags()->detach();
-        } else {
+        if ($tags[0] == "" && count($networkSample->networktags()->get()->toArray()) > 0 ) {
+            $networkSample->networktags()->detach();
+            return true;
+        } elseif ($tags[0] == "" && $networkSample->networktags()->get()->toArray() == 0) {
+            return true;
+        } elseif($tags[0] != "") {
             $networkSample->networktags()->detach();
             $networkRes = $networkSample->networktags()->attach($tags);
-        }
-        
-        if($networkRes) {
             return true;
         } else {
-            return false;
+            return true;
         }
-        
     }
 
     /**
      * Manage graphicsample tags
      */
-    public static function graphic_tags($sample_id, $tags=['']) 
+    public static function manage_graphic_tags($sample_id, $tags=['']) 
     {
-        $graphicSample = WebSample::findOrFail($sample_id);
+        $graphicSample = GraphicSample::findOrFail($sample_id);
 
-        // dd($tags);
-
-        if ($tags[0] == '') {
-            $graphicRes = $graphicSample->webtags()->detach();
-        } else {
+        if ($tags[0] == "" && count($graphicSample->graphictags()->get()->toArray()) > 0 ) {
             $graphicSample->graphictags()->detach();
-            $graphicRes = $graphicSample->webtags()->attach($tags);
-        }
-        
-        if($graphicRes) {
+            return true;
+        } elseif ($tags[0] == "" && $graphicSample->graphictags()->get()->toArray() == 0) {
+            return true;
+        } elseif($tags[0] != "") {
+            $graphicSample->graphictags()->detach();
+            $graphicRes = $graphicSample->graphictags()->attach($tags);
             return true;
         } else {
-            return false;
+            return true;
         }
-        
     }
 
 
