@@ -1,0 +1,1 @@
+<img class="card-img-top" src="{{url( $networkSample->image )}}" alt="{{ $networkSample->image }}">

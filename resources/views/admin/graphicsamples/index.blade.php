@@ -1,5 +1,5 @@
 @extends('admin.Layouts.master')
-@section('title','درج نمونه کار وب')
+@section('title','درج نمونه کار گرافیک')
 @section('header')
 
 @endsection
@@ -16,7 +16,7 @@
                 </div>
                 <ul class="breadcrumb">
                     <li><a href="">خانه</a></li>
-                    <li><a href="">مدیریت نمونه کارهای وب</a></li>
+                    <li><a href="">مدیریت نمونه کارهای گرافیک</a></li>
                 </ul>
             </div>
         </div>
@@ -24,13 +24,13 @@
         <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-pencil"></i>لیست نمونه کار وب</h3>
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i>لیست نمونه کار گرافیک</h3>
                 </div>
                 <div class="panel-body">
                     <div class="box-body">
                         <ul>
-                            @foreach ($webSamples as $webSample)
-                                <li><a href="websamples/{{ $webSample->id }}/edit"> {{ $webSample->title }} </a> </li>
+                            @foreach ($graphicSamples as $graphicSample)
+                                <li><a href="graphicsamples/{{ $graphicSample->id }}/edit"> {{ $graphicSample->title }} </a> </li>
                             @endforeach
                         </ul>
                     </div>
