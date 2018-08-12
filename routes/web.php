@@ -50,7 +50,6 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     Route::get('/websamples/{webSample}/edit', 'WebSamplesController@edit')->name('websamples.edit');
     Route::put('/websamples/{id}', 'WebSamplesController@update')->name('websamples.update');
     Route::delete('/websamples/{id}', 'WebSamplesController@destroy')->name('websamples.destroy');
-    Route::get('/websamples/deletewsimage/{id}', 'WebSamplesController@delete_image');
 
     //Networksamples admin
     Route::get('/networksamples', 'NetworkSamplesController@index')->name('networksamples.index');
@@ -60,7 +59,6 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     Route::get('/networksamples/{networkSample}/edit', 'NetworkSamplesController@edit')->name('networksamples.edit');
     Route::put('/networksamples/{id}', 'NetworkSamplesController@update')->name('networksamples.update');
     Route::delete('/networksamples/{id}', 'NetworkSamplesController@destroy')->name('networksamples.destroy');
-    Route::get('/networksamples/deletensimage/{id}', 'NetworkSamplesController@delete_image');
 
     //Graphicsamples admin
     Route::get('/graphicsamples', 'GraphicSamplesController@index')->name('graphicsamples.index');
@@ -70,7 +68,6 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     Route::get('/graphicsamples/{graphicSample}/edit', 'GraphicSamplesController@edit')->name('graphicsamples.edit');
     Route::put('/graphicsampleswebsamples/{id}', 'GraphicSamplesController@update')->name('graphicsamples.update');
     Route::delete('/graphicsamples/{id}', 'GraphicSamplesController@destroy')->name('graphicsamples.destroy');
-    Route::get('/graphicsamples/deletegsimage/{id}', 'GraphicSamplesController@delete_image');
 });
 
 //Websamples public
