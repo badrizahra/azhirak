@@ -21,16 +21,16 @@
                 </a>
                 <ul id="collapse1-2" class="collapse">
 
-                    <li><a href="">لیست نمونه کارها </a></li>
-                    <li><a href="">درج نمونه کار </a></li>
+                    <li><a href="{{ route('networksamples.index') }}">لیست نمونه کارها </a></li>
+                    <li><a href="{{ route('networksamples.create') }}">درج نمونه کار </a></li>
                 </ul>
                 <a href="#collapse1-3" data-toggle="collapse" class="parent collapsed">
                     نمونه کارهای گرافیک
                 </a>
                 <ul id="collapse1-3" class="collapse">
 
-                    <li><a href="">لیست نمونه کارها </a></li>
-                    <li><a href="">درج نمونه کار </a></li>
+                    <li><a href="{{ route('graphicsamples.index') }}">لیست نمونه کارها </a></li>
+                    <li><a href="{{ route('graphicsamples.create') }}">درج نمونه کار </a></li>
                 </ul>
             </ul>
         </li>
