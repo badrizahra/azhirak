@@ -20,7 +20,7 @@ class CreateNetworkSamplesTable extends Migration
             $table->string('title', 200);
             $table->text('description');
             $table->string('url', 250); 
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
             $table->timestamps();
