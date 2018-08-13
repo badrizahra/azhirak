@@ -43,7 +43,7 @@
                             <input type="text" name="description" id="description" class="form-control col-md-7" value="{{ $graphicSample->description }}">
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2"> آدرس گرافیک سایت</label>
+                            <label class="col-md-2"> آدرس وب سایت</label>
                             <input type="text" name="url" id="url" class="form-control col-md-7" value="{{ $graphicSample->url }}">
                         </div>
                         @if ($graphicSample->image)
@@ -72,7 +72,7 @@
                         <div class="form-group row">
                             <label class="col-md-2">تگ ها</label>
                             @foreach ($graphicTags as $graphicTag)
-                                <input type="checkbox" name="graphicTags[{{ $graphicTag->id }}]" value="{{ $graphicTag->id }}" class="form-control col-md-7" >{{ $graphicTag->title }}
+                                <input type="checkbox" name="graphicTags[{{ $graphicTag->id }}]" value="{{ $graphicTag->id }}" class="form-control col-md-7" <?php foreach($graphicSample->graphictags()->get()->toArray() as $tag) { if($tag['id'] == $graphicTag->id) { echo "checked"; } } ?> >{{ $graphicTag->title }}
                             @endforeach
                         </div>
                         <div class="box-tools">

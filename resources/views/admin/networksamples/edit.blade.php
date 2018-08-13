@@ -43,7 +43,7 @@
                             <input type="text" name="description" id="description" class="form-control col-md-7" value="{{ $networkSample->description }}">
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2"> آدرس شبکه سایت</label>
+                            <label class="col-md-2"> آدرس وب سایت</label>
                             <input type="text" name="url" id="url" class="form-control col-md-7" value="{{ $networkSample->url }}">
                         </div>
                         @if ($networkSample->image)
@@ -72,7 +72,7 @@
                         <div class="form-group row">
                             <label class="col-md-2">تگ ها</label>
                             @foreach ($networkTags as $networkTag)
-                                <input type="checkbox" name="networkTags[{{ $networkTag->id }}]" value="{{ $networkTag->id }}" class="form-control col-md-7" >{{ $networkTag->title }}
+                                <input type="checkbox" name="networkTags[{{ $networkTag->id }}]" value="{{ $networkTag->id }}" class="form-control col-md-7" <?php foreach($networkSample->networktags()->get()->toArray() as $tag) { if($tag['id'] == $networkTag->id) { echo "checked"; } } ?> >{{ $networkTag->title }}
                             @endforeach
                         </div>
                         <div class="box-tools">

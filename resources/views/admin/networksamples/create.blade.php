@@ -40,7 +40,7 @@
                             <input type="text" name="description" id="description" class="form-control col-md-7">
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2"> آدرس شبکه سایت</label>
+                            <label class="col-md-2"> آدرس وب سایت</label>
                             <input type="text" name="url" id="url" class="form-control col-md-7">
                         </div>
                         <div class="form-group row">
