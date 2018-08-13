@@ -66,7 +66,7 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     Route::get('/graphicsamples/{id}', 'GraphicSamplesController@show')->name('graphicsamples.show');
     Route::post('/graphicsamples', 'GraphicSamplesController@store')->name('graphicsamples.store');
     Route::get('/graphicsamples/{graphicSample}/edit', 'GraphicSamplesController@edit')->name('graphicsamples.edit');
-    Route::put('/graphicsampleswebsamples/{id}', 'GraphicSamplesController@update')->name('graphicsamples.update');
+    Route::put('/graphicsamples/{id}', 'GraphicSamplesController@update')->name('graphicsamples.update');
     Route::delete('/graphicsamples/{id}', 'GraphicSamplesController@destroy')->name('graphicsamples.destroy');
 });
 
