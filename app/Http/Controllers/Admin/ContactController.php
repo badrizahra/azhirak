@@ -43,7 +43,7 @@ class ContactController extends Controller
                         ->setName('id')
                         ->setLabel('ID')
                         ->setSortable(true)
-                        ->setSorting(Grid::SORT_ASC)
+                        ->setSorting(Grid::SORT_DESC)
                     ,
                     (new FieldConfig)
                         ->setName('subject')

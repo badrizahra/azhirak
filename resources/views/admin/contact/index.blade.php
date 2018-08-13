@@ -29,11 +29,11 @@
                         <div class="panel-body">
                             {!! $grid !!}
                             {{--session messages--}}
-                            {{--@if(Session::has('message'))--}}
-                                {{--@component('components.alert',['type'=> Session::get("type")  ])--}}
-                                    {{--{{ Session::get('message') }}--}}
-                                {{--@endcomponent--}}
-                            {{--@endif--}}
+                            @if(Session::has('message'))
+                                @component('components.alert',['type'=> Session::get("type")  ])
+                                    {{ Session::get('message') }}
+                                @endcomponent
+                            @endif
 
                             {{--@isset($session_message)--}}
                                 {{--<div class="alert alert-warning">--}}
