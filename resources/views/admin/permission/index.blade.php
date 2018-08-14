@@ -71,7 +71,7 @@
                                         </tbody>
                                     </table>
                                     @if(Session::has('message'))
-                                        @component('components.alert',['type'=> Session::get("type")  ])
+                                        @component('component.alert',['type'=> Session::get("type")  ])
                                             {{ Session::get('message') }}
                                         @endcomponent
                                     @endif

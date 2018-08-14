@@ -10,13 +10,14 @@
                             {{--<a href="" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="بارگذاری مجدد"><i class="fa fa-refresh"></i></a>--}}
                             {{--<a href="" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="بارگذاری مجدد"><i class="fa fa-refresh"></i></a>--}}
 
-                        {{--<a href="" data-toggle="tooltip" title="افزودن سوال" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
+                        {{--<a href="" data-toggle="tooltip" title="" class="btn btn-primary"><i class="fa fa-plus"></i></a>--}}
                 {{--</div>--}}
                 <ul class="breadcrumb">
                     <li><a href="">خانه</a></li>
                     <li><a href="">{{ $title }}</a></li>
                 </ul>
             </div>
+
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -28,18 +29,14 @@
                         </div>
                         <div class="panel-body">
                             {!! $grid !!}
+
                             {{--session messages--}}
                             @if(Session::has('message'))
-                                @component('components.alert',['type'=> Session::get("type")  ])
+                                @component('component.alert',['type'=> Session::get("type")  ])
                                     {{ Session::get('message') }}
                                 @endcomponent
                             @endif
 
-                            {{--@isset($session_message)--}}
-                                {{--<div class="alert alert-warning">--}}
-                                    {{--{{ $session_message }}--}}
-                                {{--</div>--}}
-                            {{--@endisset--}}
                         </div>
                     </div>
                 </div>

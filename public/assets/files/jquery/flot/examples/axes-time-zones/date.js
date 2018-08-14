@@ -515,7 +515,7 @@
     }
 
     //if isUTC is true, date is given in UTC, otherwise it's given
-    // in local time (ie. date.getUTC*() returns local time components)
+    // in local time (ie. date.getUTC*() returns local time component)
     function getRule(dt, zone, isUTC) {
       var date = typeof dt === 'number' ? new Date(dt) : dt;
       var ruleset = zone[1];

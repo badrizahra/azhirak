@@ -26,7 +26,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $title = 'مدیریت تماس ها ';
+        $title = 'مدیریت تماس های وبسایت وب ';
+
         $n = 12;
         $query = (new Contact)
             ->newQuery();
@@ -107,7 +108,11 @@ class ContactController extends Controller
                         ->setLabel('حذف')
                         ->setCallback(function ($val, ObjectDataRow $row) use($n) {
                             if ($val) {
-                                return  HTML::decode('<form method="post" action="'.route('contact.delete').'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input type="hidden" name="id" value="'.$val.'"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
+                                $this_row = '';
+                                if(($row->getId() - 1) % $n == 0) {
+                                    $this_row = '</form>';
+                                }
+                                return  $this_row.HTML::decode('<form method="post" action="'.route('contact.delete').'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input type="hidden" name="id" value="'.$val.'"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
                             }
                         })
                 ])
