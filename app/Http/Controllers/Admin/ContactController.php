@@ -26,7 +26,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $title = 'مدیریت تماس های وبسایت وب ';
+        $title = 'مدیریت تماس های وب ';
 
         $n = 12;
         $query = (new Contact)
