@@ -37,10 +37,20 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     //user
     Route::resource('user','UserController',['as' => 'admin']);
 
-    //contact us
+    //contact us (websamples) 
     Route::get('contact/','ContactController@index')->name('contact.index');
     Route::get('contact/show/{id}','ContactController@show')->name('contact.show');
     Route::delete('contact/delete','ContactController@delete')->name('contact.delete');
+
+    //contact us (networksamples) 
+    Route::get('networkcontact/','NetworkContactController@index')->name('networkcontact.index');
+    Route::get('networkcontact/show/{id}','NetworkContactController@show')->name('networkcontact.show');
+    Route::delete('networkcontact/delete','NetworkContactController@delete')->name('networkcontact.delete');
+
+    //contact us (graphicsamples) 
+    Route::get('graphiccontact/','GraphicContactController@index')->name('graphiccontact.index');
+    Route::get('graphiccontact/show/{id}','GraphicContactController@show')->name('graphiccontact.show');
+    Route::delete('graphiccontact/delete','GraphicContactController@delete')->name('graphiccontact.delete');
 
     //websamples admin
     Route::get('/websamples', 'WebSamplesController@index')->name('websamples.index');
