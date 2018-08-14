@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contact;
+use App\GraphicContact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Nayjest\Grids\Grid;
@@ -14,8 +14,7 @@ use Nayjest\Grids\IdFieldConfig;
 use Nayjest\Grids\ObjectDataRow;
 use Html;
 
-
-class ContactController extends Controller
+class GraphicContactController extends Controller
 {
     /**
      * Index
@@ -26,10 +25,10 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $title = 'مدیریت تماس های وب ';
+        $title = 'مدیریت تماس های گرافیک';
 
         $n = 12;
-        $query = (new Contact)
+        $query = (new GraphicContact)
             ->newQuery();
 
         $grid = new Grid(
@@ -57,7 +56,7 @@ class ContactController extends Controller
                             else {
                                 $res_row = $val;
                             }
-                            return '<a href="'.route('contact.show',$id).'">'.$res_row.'</a>';
+                            return '<a href="'.route('graphiccontact.show',$id).'">'.$res_row.'</a>';
                         })
                         ->setSortable(true)
                         ->addFilter(
@@ -76,7 +75,7 @@ class ContactController extends Controller
                             else {
                                 $res_row = $val;
                             }
-                            return '<a href="'.route('contact.show',$id).'">'.$res_row.'</a>';
+                            return '<a href="'.route('graphiccontact.show',$id).'">'.$res_row.'</a>';
                         })
                         ->setSortable(true)
                         ->addFilter(
@@ -100,7 +99,7 @@ class ContactController extends Controller
                             else {
                                 $res_row = $val;
                             }
-                            return '<a href="'.route('contact.show',$id).'">'.$res_row.'</a>';
+                            return '<a href="'.route('graphiccontact.show',$id).'">'.$res_row.'</a>';
                         })
                     ,
                     (new FieldConfig)
@@ -112,24 +111,24 @@ class ContactController extends Controller
                                 if(($row->getId() - 1) % $n == 0) {
                                     $this_row = '</form>';
                                 }
-                                return  $this_row.HTML::decode('<form method="post" action="'.route('contact.delete').'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input type="hidden" name="id" value="'.$val.'"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
+                                return  $this_row.HTML::decode('<form method="post" action="'.route('graphiccontact.delete').'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input type="hidden" name="id" value="'.$val.'"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
                             }
                         })
                 ])
         );
         $grid = $grid->render();
-        return view('admin/contact/index', compact( 'title', 'grid'));
+        return view('admin/graphiccontact/index', compact( 'title', 'grid'));
 
     }
 
     public function show($id) {
-        $item = Contact::find($id);
+        $item = GraphicContact::find($id);
         $title = '';
         if ($item->is_seen == 0) {
             $item->is_seen = 1;
             $res = $item->save();
         }
-        return view('admin/contact/show',compact('item','title'));
+        return view('admin/graphiccontact/show',compact('item','title'));
     }
 
     /**
@@ -140,14 +139,14 @@ class ContactController extends Controller
      */
     public function delete(Request $request) {
         if(!$request->id) {
-            return redirect()->route('contact.index')->with(['message'=>'اطلاعات نامعتبر است.','type'=>'alert-danger']);
+            return redirect()->route('graphiccontact.index')->with(['message'=>'اطلاعات نامعتبر است.','type'=>'alert-danger']);
         }
 
-        if (Contact::where('id', $request->id)->delete()) {
-            return redirect()->route('contact.index')->with(['message'=>'حذف با موفقیت انجام شد.','type'=>'alert-success']);
+        if (GraphicContact::where('id', $request->id)->delete()) {
+            return redirect()->route('graphiccontact.index')->with(['message'=>'حذف با موفقیت انجام شد.','type'=>'alert-success']);
         }
         else {
-            return redirect()->route('contact.index')->with(['message'=>'عملیات با مشکل مواجه شد.','type'=>'alert-danger']);
+            return redirect()->route('graphiccontact.index')->with(['message'=>'عملیات با مشکل مواجه شد.','type'=>'alert-danger']);
         }
     }
 }
