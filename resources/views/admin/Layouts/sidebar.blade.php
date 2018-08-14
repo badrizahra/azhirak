@@ -34,5 +34,18 @@
                 </ul>
             </ul>
         </li>
+        
+        <li id="menu-contact">
+            <a href="#collapse2" data-toggle="collapse" class="parent collapsed">
+                <img src="{{ asset('/image/icon/1.png') }}"> مدیریت تماس ها
+            </a>
+            <ul id="collapse2" class="collapse">
+                <li><a href="{{ route('contact.index') }}"> تماس های وب </a></li>
+                
+                <li><a href="{{ route('graphiccontact.index') }}"> تماس های گراقیک </a></li>
+
+                <li><a href="{{ route('networkcontact.index') }}"> تماس های شبکه </a></li>
+            </ul>
+        </li>
     </ul>
 </nav>
