@@ -121,7 +121,7 @@ class WebSamplesController extends Controller
                                 if(($row->getId() - 1) % $n == 0) {
                                     $this_row = '</form>';
                                 }
-                                return  $this_row.HTML::decode('<form method="post" action="'.route('contact.delete').'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input type="hidden" name="id" value="'.$val.'"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
+                                return  $this_row.HTML::decode('<form method="post" action="'.route('websamples.destroy',$val).'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
                             }
                         })
                 ])

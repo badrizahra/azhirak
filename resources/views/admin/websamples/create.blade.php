@@ -27,7 +27,7 @@
                     <h3 class="panel-title"><i class="fa fa-pencil"></i>درج نمونه کار وب</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="/admin/websamples" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('websamples.store') }}" method="POST" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
                     <div class="box-body">
