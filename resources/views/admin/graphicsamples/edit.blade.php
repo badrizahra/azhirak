@@ -27,7 +27,7 @@
                     <h3 class="panel-title"><i class="fa fa-pencil"></i> ویرایش نمونه کار گرافیک : {{ $graphicSample->title }}</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="/admin/graphicsamples/{{ $graphicSample->id }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('graphicsamples.update', $graphicSample->id) }}" method="POST" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
 
@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2"> توضیحات</label>
-                            <input type="text" name="description" id="description" class="form-control col-md-7" value="{{ $graphicSample->description }}">
+                            <textarea name="description" id="description" cols="30" rows="10" class="form-control col-md-7"> {{ $graphicSample->description }} </textarea>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2"> آدرس وب سایت</label>
@@ -83,6 +83,7 @@
                     </form>
 
                     <form action="/admin/graphicsamples/{{ $graphicSample->id }}" method="POST">
+                    <form action="{{ route('graphicsamples.destroy', $graphicSample->id) }}" method="POST">
     
                         {{ csrf_field() }}
                         

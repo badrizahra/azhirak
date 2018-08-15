@@ -27,7 +27,7 @@
                     <h3 class="panel-title"><i class="fa fa-pencil"></i> ویرایش نمونه کار وب : {{ $webSample->title }}</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="/admin/websamples/{{ $webSample->id }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('websamples.update', $webSample->id) }}" method="POST" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
 
@@ -40,13 +40,13 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2"> توضیحات</label>
-                            <input type="text" name="description" id="description" class="form-control col-md-7" value="{{ $webSample->description }}">
+                            <textarea name="description" id="description" cols="30" rows="10" class="form-control col-md-7"> {{ $webSample->description }} </textarea>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2"> آدرس وب سایت</label>
                             <input type="text" name="url" id="url" class="form-control col-md-7" value="{{ $webSample->url }}">
                         </div>
-                        @if ($websample->image)
+                        @if ($webSample->image)
                             <div class="form-group row">
                                 <label class="col-md-2">تصویر فعلی</label>
                                 <img src="{{ $webSample->image }}" alt="{{ $webSample->image }}">
@@ -82,8 +82,7 @@
 
                     </form>
 
-                    {{--  <form action="/admin/websamples/{{ $webSample->id }}" method="POST">  --}}
-                    <form action="<?php echo route('websamples.destroy',$webSample->id);?>" method="POST">
+                    <form action="{{ route('websamples.destroy', $webSample->id) }}" method="POST">
     
                         {{ csrf_field() }}
                         

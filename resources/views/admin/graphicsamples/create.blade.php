@@ -27,7 +27,7 @@
                     <h3 class="panel-title"><i class="fa fa-pencil"></i>درج نمونه کار گرافیک</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="/admin/graphicsamples" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('graphicsamples.store') }}" method="POST" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
                     <div class="box-body">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2"> توضیحات</label>
-                            <input type="text" name="description" id="description" class="form-control col-md-7">
+                            <textarea name="description" id="description" cols="30" rows="10" class="form-control col-md-7"></textarea>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2"> آدرس وب سایت</label>

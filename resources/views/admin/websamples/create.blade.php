@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2"> توضیحات</label>
-                            <input type="text" name="description" id="description" class="form-control col-md-7">
+                            <textarea name="description" id="description" cols="30" rows="10" class="form-control col-md-7"></textarea>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2"> آدرس وب سایت</label>
