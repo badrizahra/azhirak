@@ -10,6 +10,14 @@ use App\Status;
 use App\Helpers\Helper;
 use App\Http\Requests\NetworkSampleRequest;
 use Illuminate\Http\Request;
+use Nayjest\Grids\Grid;
+use Nayjest\Grids\EloquentDataProvider;
+use Nayjest\Grids\FieldConfig;
+use Nayjest\Grids\FilterConfig;
+use Nayjest\Grids\GridConfig;
+use Nayjest\Grids\IdFieldConfig;
+use Nayjest\Grids\ObjectDataRow;
+use Html;
 
 // Image upload
 use Illuminate\Support\Facades\Storage;
@@ -24,9 +32,99 @@ class NetworkSamplesController extends Controller
      */
     public function index()
     {
-        $networkSamples = NetworkSample::all();
+        $title = 'مدیریت نونه کارهای شبکه';
 
-        return view('admin.networksamples.index', compact('networkSamples'));
+        $n = 12;
+        $query = NetworkSample
+            ::leftJoin('statuses', 'network_samples.status_id','=','statuses.id')
+            ->select('network_samples.*')
+            ->addSelect('statuses.title as status');
+
+        $grid = new Grid(
+            (new GridConfig)
+                ->setDataProvider(
+                    new EloquentDataProvider($query)
+                )
+                ->setName('id')
+                ->setPageSize(12)
+                ->setColumns([
+                    (new FieldConfig)
+                        ->setName('id')
+                        ->setLabel('ID')
+                        ->setSortable(true)
+                        ->setSorting(Grid::SORT_DESC)
+                    ,
+                    (new FieldConfig)
+                        ->setName('title')
+                        ->setLabel('عنوان')
+                        ->setCallback(function ($val) {
+                            return $val;
+                        })
+                        ->setSortable(true)
+                        ->addFilter(
+                            (new FilterConfig)
+                                ->setOperator(FilterConfig::OPERATOR_LIKE)
+                        )
+                    ,
+                    (new FieldConfig)
+                        ->setName('url')
+                        ->setLabel('آدرس وب سایت')
+                        ->setCallback(function ($val) {
+                            return $val;
+                        })
+                        ->setSortable(true)
+                        ->addFilter(
+                            (new FilterConfig)
+                                ->setOperator(FilterConfig::OPERATOR_LIKE)
+                        )
+                    ,
+                    (new FieldConfig)
+                        ->setName('status')
+                        ->setLabel('وضعیت')
+                        ->setCallback(function ($val) {
+                            return $val;
+                        })
+                        ->setSortable(true)
+                        ->addFilter(
+                            (new FilterConfig)
+                                ->setOperator(FilterConfig::OPERATOR_LIKE)
+                        )
+                    ,
+                    (new FieldConfig)
+                        ->setName('created_at')
+                        ->setLabel('تاریخ درج')
+                        ->setSortable(true)
+                        ->addFilter(
+                            (new FilterConfig)
+                                ->setOperator(FilterConfig::OPERATOR_LIKE)
+                        )
+                        ->setCallback(function ($val) {
+                            return $val;
+                        })
+                    ,
+                    (new FieldConfig)
+                        ->setName('id')
+                        ->setLabel('ویرایش')
+                        ->setCallback(function ($val, ObjectDataRow $row) {
+                            return HTML::decode(link_to_route('networksamples.edit', '<i data-toggle="tooltip" title="ویرایش"  class="fa fa-edit" style="font-size:20px"></i>', [$val], ['class' => 'small button']));
+                        })
+                    ,
+                    (new FieldConfig)
+                        ->setName('id')
+                        ->setLabel('حذف')
+                        ->setCallback(function ($val, ObjectDataRow $row) use($n) {
+                            if ($val) {
+                                $this_row = '';
+                                if(($row->getId() - 1) % $n == 0) {
+                                    $this_row = '</form>';
+                                }
+                                return  $this_row.HTML::decode('<form method="post" action="'.route('networksamples.destroy',$val).'" onsubmit="return confirm(\'آیا از حذف مطمئن هستید؟\');" ><input type="hidden" name="_method" value="delete"><input name="_token" type="hidden" value="'.csrf_token().'"><button class="btn-delete" type="submit" /><i data-toggle="tooltip" title="حذف"  class="fa fa-trash status" style="font-size:20px; color:#e23513"></i></form>');
+                            }
+                        })
+                ])
+        );
+        $grid = $grid->render();
+        return view('admin.networksamples.index', compact( 'title', 'grid'));
     }
 
     /**

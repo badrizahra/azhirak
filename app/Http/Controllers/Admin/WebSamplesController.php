@@ -32,9 +32,6 @@ class WebSamplesController extends Controller
      */
     public function index()
     {
-//        $webSamples = WebSample::all();
-//
-//        return view('admin.websamples.index', compact('webSamples'));
         $title = 'مدیریت نمونه کارهای وب';
 
         $n = 12;
