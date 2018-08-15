@@ -65,7 +65,7 @@ Route::namespace('Admin')->middleware([Admin::class])->prefix(env('APP_ADMIN_URL
     Route::get('/networksamples', 'NetworkSamplesController@index')->name('networksamples.index');
     Route::get('/networksamples/create', 'NetworkSamplesController@create')->name('networksamples.create');
     Route::get('/networksamples/{id}', 'NetworkSamplesController@show')->name('networksamples.show');
-    Route::post('/networksamples', 'NetworkSamplesController@store')->name('websamples.store');
+    Route::post('/networksamples', 'NetworkSamplesController@store')->name('networksamples.store');
     Route::get('/networksamples/{networkSample}/edit', 'NetworkSamplesController@edit')->name('networksamples.edit');
     Route::put('/networksamples/{id}', 'NetworkSamplesController@update')->name('networksamples.update');
     Route::delete('/networksamples/{id}', 'NetworkSamplesController@destroy')->name('networksamples.destroy');
